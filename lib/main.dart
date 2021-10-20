@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:phone_book/phone_screen.dart';
+
+import 'future/presentation/screens/phone_screen.dart';
 
 void main() {
   runApp(const MyApp());
