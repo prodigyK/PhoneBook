@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:phone_book/core/error/exception.dart';
 import 'package:phone_book/core/error/failure.dart';
 import 'package:phone_book/core/platform/network_info.dart';
@@ -23,7 +24,9 @@ class PhoneRepositoryImpl implements PhoneRepository {
     if (await networkInfo.isConnected) {
       try {
         final remotePhones = await getPhones();
+        debugPrint('get from remote = ${remotePhones.length}');
         phoneLocalDataSource.savePhonesToCache(remotePhones);
+        debugPrint('save to cache = ${remotePhones.length}');
         return Right(remotePhones);
       } on ServerException {
         return Left(ServerFailure());
@@ -31,6 +34,7 @@ class PhoneRepositoryImpl implements PhoneRepository {
     } else {
       try {
         final localPhones = await phoneLocalDataSource.getPhonesFromCache();
+        debugPrint('get from cache = ${localPhones.length}');
         return Right(localPhones);
       } on CacheException {
         return Left(CacheFailure());

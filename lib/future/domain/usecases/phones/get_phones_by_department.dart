@@ -5,10 +5,10 @@ import 'package:phone_book/core/usecases/usecase.dart';
 import 'package:phone_book/future/domain/entities/phone_entity.dart';
 import 'package:phone_book/future/domain/repositories/phone_repository.dart';
 
-class GetPhonesByDepartment extends UseCase<List<PhoneEntity>, DepartmentIdParams> {
+class GetPhonesByDepartmentCase extends UseCase<List<PhoneEntity>, DepartmentIdParams> {
   final PhoneRepository repository;
 
-  GetPhonesByDepartment(this.repository);
+  GetPhonesByDepartmentCase(this.repository);
 
   @override
   Future<Either<Failure, List<PhoneEntity>>> call(DepartmentIdParams params) async {
