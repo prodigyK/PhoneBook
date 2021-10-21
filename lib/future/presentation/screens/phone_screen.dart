@@ -62,6 +62,12 @@ class _PhoneScreenState extends State<PhoneScreen> {
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.access_alarm),
+        onPressed: () {
+          BlocProvider.of<GetPhonesByDepartmentCubit>(context, listen: false).getPhonesByDepartment(depId: '1000');
+        },
+      ),
     );
   }
 }

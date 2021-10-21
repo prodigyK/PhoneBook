@@ -44,21 +44,21 @@ class PhoneRepositoryImpl implements PhoneRepository {
 
   @override
   Future<Either<Failure, List<PhoneEntity>>> getAllPhones() async {
-    return _getPhones(() => phoneRemoteDataSource.getAllPhones());
+    return _getPhones(() async => await phoneRemoteDataSource.getAllPhones());
   }
 
   @override
   Future<Either<Failure, List<PhoneEntity>>> getPhonesByDepartment(String depId) async {
-    return _getPhones(() => phoneRemoteDataSource.getPhonesByDepartment(depId));
+    return _getPhones(() async => await phoneRemoteDataSource.getPhonesByDepartment(depId));
   }
 
   @override
   Future<Either<Failure, List<PhoneEntity>>> searchNameByNumber(String number) {
-    return _getPhones(() => phoneRemoteDataSource.searchNameByNumber(number));
+    return _getPhones(() async => await phoneRemoteDataSource.searchNameByNumber(number));
   }
 
   @override
   Future<Either<Failure, List<PhoneEntity>>> searchPhonesByName(String query) {
-    return _getPhones(() => phoneRemoteDataSource.searchPhonesByName(query));
+    return _getPhones(() async => await phoneRemoteDataSource.searchPhonesByName(query));
   }
 }
