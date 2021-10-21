@@ -5,10 +5,10 @@ import 'package:phone_book/core/usecases/usecase.dart';
 import 'package:phone_book/future/domain/entities/department_entity.dart';
 import 'package:phone_book/future/domain/repositories/department_repository.dart';
 
-class GetDepartmentById extends UseCase<DepartmentEntity, DepartmentParams> {
+class GetDepartmentByIdCase extends UseCase<DepartmentEntity, DepartmentParams> {
   final DepartmentRepository repository;
 
-  GetDepartmentById(this.repository);
+  GetDepartmentByIdCase(this.repository);
 
   @override
   Future<Either<Failure, DepartmentEntity>> call(DepartmentParams params) async {

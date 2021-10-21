@@ -30,7 +30,6 @@ class PhoneModel extends PhoneEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'name': name,
       'number': number,
       'depId': depId,
