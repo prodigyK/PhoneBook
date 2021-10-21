@@ -32,7 +32,7 @@ class PhoneRemoteDataSourceImpl implements PhoneRemoteDataSource {
     return await _collection().get().then((snapshot) {
       _phones.clear();
       snapshot.docs.forEach((phone) {
-        _phones.add(PhoneModel.fromJson(phone.data() as Map<String, dynamic>));
+        _phones.add(PhoneModel.fromJson(phone.data() as Map<String, dynamic>, docID: phone.id));
       });
       return [..._phones];
     }).catchError((error) => throw ServerException());

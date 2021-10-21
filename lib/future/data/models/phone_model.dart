@@ -17,14 +17,14 @@ class PhoneModel extends PhoneEntity {
           createdAt: createdAt,
         );
 
-  factory PhoneModel.fromJson(Map<String, dynamic> json) {
+  factory PhoneModel.fromJson(Map<String, dynamic> json, {String? docID}) {
     return PhoneModel(
-      id: json['id'],
+      id: docID ?? '',
       name: json['name'],
       number: json['number'],
       depId: json['depId'],
       isBoss: json['isBoss'],
-      createdAt: json['createdAt'],
+      createdAt: DateTime.parse(json['createdAt']),
     );
   }
 
@@ -35,7 +35,7 @@ class PhoneModel extends PhoneEntity {
       'number': number,
       'depId': depId,
       'isBoss': isBoss,
-      'createdAt': createdAt,
+      'createdAt': createdAt.toIso8601String(),
     };
   }
 }

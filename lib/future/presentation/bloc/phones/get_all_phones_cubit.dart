@@ -12,12 +12,20 @@ class GetAllPhonesCubit extends Cubit<GetAllPhonesState> {
 
   GetAllPhonesCubit({required this.getAllPhonesCase}) : super(GetAllPhonesInitial());
 
-  void getAllPhones() async {
+  Future<List<PhoneEntity>> getAllPhones() async {
     emit(GetAllPhonesLoading());
 
     final failureOrPhones = await getAllPhonesCase(PlugParams());
-    failureOrPhones.fold((failure) => emit(GetAllPhonesError(message: _mapFailureToString(failure))),
-        (phones) => emit(GetAllPhonesLoaded(phones: phones)));
+
+    List<PhoneEntity> phonesList = [];
+    failureOrPhones.fold(
+      (failure) => emit(GetAllPhonesError(message: _mapFailureToString(failure))),
+      (phones) {
+        emit(GetAllPhonesLoaded(phones: phones));
+        phonesList = phones;
+      },
+    );
+    return phonesList;
   }
 
   String _mapFailureToString(Failure failure) {
