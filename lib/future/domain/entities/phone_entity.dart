@@ -7,6 +7,7 @@ class PhoneEntity extends Equatable {
   final String depId;
   final bool isBoss;
   final DateTime createdAt;
+  final String ordering;
 
   const PhoneEntity({
     required this.id,
@@ -15,8 +16,9 @@ class PhoneEntity extends Equatable {
     required this.depId,
     required this.isBoss,
     required this.createdAt,
+    required this.ordering,
   });
 
   @override
-  List<Object> get props => [id, name, number, depId, isBoss, createdAt];
+  List<Object> get props => [id, name, number, depId, isBoss, createdAt, ordering];
 }
