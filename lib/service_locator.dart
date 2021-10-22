@@ -1,9 +1,9 @@
 import 'package:get_it/get_it.dart';
 import 'package:phone_book/core/platform/network_info.dart';
-import 'package:phone_book/future/data/datasources/phone_local_data_source.dart';
-import 'package:phone_book/future/data/datasources/phone_local_data_source_impl.dart';
-import 'package:phone_book/future/data/datasources/phone_remote_data_source.dart';
-import 'package:phone_book/future/data/datasources/phone_remote_data_source_impl.dart';
+import 'package:phone_book/future/data/datasources/phones/phone_local_data_source.dart';
+import 'package:phone_book/future/data/datasources/phones/phone_local_data_source_impl.dart';
+import 'package:phone_book/future/data/datasources/phones/phone_remote_data_source.dart';
+import 'package:phone_book/future/data/datasources/phones/phone_remote_data_source_impl.dart';
 import 'package:phone_book/future/data/repositories/phone_repository_impl.dart';
 import 'package:phone_book/future/domain/repositories/phone_repository.dart';
 import 'package:phone_book/future/domain/usecases/phones/get_all_phones.dart';

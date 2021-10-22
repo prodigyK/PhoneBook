@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:phone_book/core/error/exception.dart';
-import 'package:phone_book/future/data/datasources/phone_remote_data_source.dart';
+import 'package:phone_book/future/data/datasources/phones/phone_remote_data_source.dart';
 import 'package:phone_book/future/data/models/phone_model.dart';
 
 class PhoneRemoteDataSourceImpl implements PhoneRemoteDataSource {
