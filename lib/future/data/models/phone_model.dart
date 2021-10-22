@@ -1,13 +1,14 @@
 import 'package:phone_book/future/domain/entities/phone_entity.dart';
 
 class PhoneModel extends PhoneEntity {
-  PhoneModel({
+  const PhoneModel({
     required id,
     required name,
     required number,
     required depId,
     required isBoss,
     required createdAt,
+    required ordering,
   }) : super(
           id: id,
           name: name,
@@ -15,6 +16,7 @@ class PhoneModel extends PhoneEntity {
           depId: depId,
           isBoss: isBoss,
           createdAt: createdAt,
+          ordering: ordering,
         );
 
   factory PhoneModel.fromJson(Map<String, dynamic> json, {String? docID}) {
@@ -25,6 +27,7 @@ class PhoneModel extends PhoneEntity {
       depId: json['depId'],
       isBoss: json['isBoss'],
       createdAt: DateTime.parse(json['createdAt']),
+      ordering: json['ordering'],
     );
   }
 
@@ -35,6 +38,7 @@ class PhoneModel extends PhoneEntity {
       'depId': depId,
       'isBoss': isBoss,
       'createdAt': createdAt.toIso8601String(),
+      'ordering': ordering,
     };
   }
 }

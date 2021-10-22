@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:phone_book/core/error/exception.dart';
-import 'package:phone_book/future/data/datasources/phone_local_data_source.dart';
+import 'package:phone_book/future/data/datasources/phones/phone_local_data_source.dart';
 import 'package:phone_book/future/data/models/phone_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
