@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 import 'package:phone_book/core/error/exception.dart';
 import 'package:phone_book/core/error/failure.dart';
 import 'package:phone_book/core/platform/network_info.dart';
@@ -8,6 +8,7 @@ import 'package:phone_book/future/data/datasources/phones/phone_remote_data_sour
 import 'package:phone_book/future/data/models/phone_model.dart';
 import 'package:phone_book/future/domain/entities/phone_entity.dart';
 import 'package:phone_book/future/domain/repositories/phone_repository.dart';
+import 'package:phone_book/service_locator.dart' as di;
 
 class PhoneRepositoryImpl implements PhoneRepository {
   PhoneRemoteDataSource phoneRemoteDataSource;
@@ -20,13 +21,15 @@ class PhoneRepositoryImpl implements PhoneRepository {
     required this.networkInfo,
   });
 
+  final log = di.sl<Logger>();
+
   Future<Either<Failure, List<PhoneEntity>>> _getPhones(Future<List<PhoneModel>> Function() getPhones) async {
     if (await networkInfo.isConnected) {
       try {
         final remotePhones = await getPhones();
-        debugPrint('get from remote = ${remotePhones.length}');
+        log.fine('get from remote = ${remotePhones.length}');
         phoneLocalDataSource.savePhonesToCache(remotePhones);
-        debugPrint('save to cache = ${remotePhones.length}');
+        log.fine('save to cache = ${remotePhones.length}');
         return Right(remotePhones);
       } on ServerException {
         return Left(ServerFailure());
@@ -34,7 +37,7 @@ class PhoneRepositoryImpl implements PhoneRepository {
     } else {
       try {
         final localPhones = await phoneLocalDataSource.getPhonesFromCache();
-        debugPrint('get from cache = ${localPhones.length}');
+        log.fine('get from cache = ${localPhones.length}');
         return Right(localPhones);
       } on CacheException {
         return Left(CacheFailure());

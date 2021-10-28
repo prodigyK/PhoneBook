@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:logging/logging.dart';
 import 'package:phone_book/core/error/exception.dart';
 import 'package:phone_book/core/error/failure.dart';
 import 'package:phone_book/core/platform/network_info.dart';
@@ -6,6 +7,7 @@ import 'package:phone_book/future/data/datasources/departments/department_local_
 import 'package:phone_book/future/data/datasources/departments/department_remote_data_source.dart';
 import 'package:phone_book/future/domain/entities/department_entity.dart';
 import 'package:phone_book/future/domain/repositories/department_repository.dart';
+import 'package:phone_book/service_locator.dart' as di;
 
 class DepartmentRepositoryImpl implements DepartmentRepository {
   DepartmentRemoteDataSource departmentRemoteDataSource;
@@ -18,8 +20,11 @@ class DepartmentRepositoryImpl implements DepartmentRepository {
     required this.networkInfo,
   });
 
+  final log = di.sl<Logger>();
+
   @override
   Future<Either<Failure, List<DepartmentEntity>>> getAllDepartments() async {
+    log.info('Call getAllDepartments() method');
     if (await networkInfo.isConnected) {
       try {
         final remoteDeps = await departmentRemoteDataSource.getAllDepartments();
@@ -40,6 +45,7 @@ class DepartmentRepositoryImpl implements DepartmentRepository {
 
   @override
   Future<Either<Failure, DepartmentEntity>> getDepartmentById(String depId) async {
+    log.fine('Call getDepartmentById($depId) method');
     if (await networkInfo.isConnected) {
       try {
         final remoteDep = await departmentRemoteDataSource.getDepartmentById(depId);

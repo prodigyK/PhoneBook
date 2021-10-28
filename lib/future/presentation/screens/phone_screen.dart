@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logging/logging.dart';
 import 'package:phone_book/future/domain/entities/phone_entity.dart';
 import 'package:phone_book/future/presentation/bloc/phones/get_phones_by_department_cubit.dart';
+import 'package:phone_book/service_locator.dart' as di;
 
 class PhoneScreen extends StatefulWidget {
   const PhoneScreen({Key? key}) : super(key: key);
@@ -12,6 +14,7 @@ class PhoneScreen extends StatefulWidget {
 
 class _PhoneScreenState extends State<PhoneScreen> {
   bool firstInit = true;
+  final log = di.sl<Logger>();
 
   @override
   void didChangeDependencies() {
@@ -24,7 +27,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('PhoneScreen build() method');
+    log.info('Call PhoneScreen build() method');
 
     return Scaffold(
       appBar: AppBar(
@@ -45,7 +48,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
             return ListView.builder(
                 itemCount: phones.length,
                 itemBuilder: (context, index) {
-                  debugPrint('Phone: ${phones[index]}');
+                  log.fine('Phone: ${phones[index]}');
                   return ListTile(
                     title: Text(phones[index].name),
                     subtitle: Text(phones[index].number),
@@ -63,7 +66,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.access_alarm),
+        child: const Icon(Icons.access_alarm),
         onPressed: () {
           BlocProvider.of<GetPhonesByDepartmentCubit>(context, listen: false).getPhonesByDepartment(depId: '1000');
         },
