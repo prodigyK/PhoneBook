@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:logging/logging.dart';
 import 'package:phone_book/core/platform/network_info.dart';
 import 'package:phone_book/future/data/datasources/phones/phone_local_data_source.dart';
 import 'package:phone_book/future/data/datasources/phones/phone_local_data_source_impl.dart';
@@ -38,4 +39,8 @@ Future<void> init() async {
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
   final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
+
+  // Logger
+  sl.registerLazySingleton(() => Logger('PhoneScreen'));
+
 }
