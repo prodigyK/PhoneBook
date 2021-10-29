@@ -20,5 +20,5 @@ class PhoneEntity extends Equatable {
   });
 
   @override
-  List<Object> get props => [id, name, number, depId, isBoss, createdAt, ordering];
+  List<Object> get props => [name, number, depId, isBoss, createdAt, ordering];
 }

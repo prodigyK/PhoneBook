@@ -6,7 +6,7 @@ import 'package:phone_book/future/data/datasources/phones/phone_local_data_sourc
 import 'package:phone_book/future/data/datasources/phones/phone_local_data_source_impl.dart';
 import 'package:phone_book/future/data/datasources/phones/phone_remote_data_source.dart';
 import 'package:phone_book/future/data/datasources/phones/phone_remote_data_source_impl.dart';
-import 'package:phone_book/future/data/repositories/phone_repository_impl.dart';
+import 'package:phone_book/future/domain/repositories/phone_repository_impl.dart';
 import 'package:phone_book/future/domain/repositories/phone_repository.dart';
 import 'package:phone_book/future/domain/usecases/phones/get_all_phones.dart';
 import 'package:phone_book/future/domain/usecases/phones/get_phones_by_department.dart';

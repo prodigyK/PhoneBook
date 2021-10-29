@@ -64,4 +64,40 @@ class PhoneRepositoryImpl implements PhoneRepository {
   Future<Either<Failure, List<PhoneEntity>>> searchPhonesByName(String query) {
     return _getPhones(() async => await phoneRemoteDataSource.searchPhonesByName(query));
   }
+
+  @override
+  Future<Either<Failure, String>> addPhone(PhoneEntity phone) async {
+    if (await networkInfo.isConnected) {
+      try {
+        return Right(await phoneRemoteDataSource.addPhone(phone as PhoneModel));
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    }
+    return Left(ServerFailure());
+  }
+
+  @override
+  Future<Either<Failure, void>> removePhone(PhoneEntity phone) async {
+    if (await networkInfo.isConnected) {
+      try {
+        return Right(await phoneRemoteDataSource.removePhone(phone as PhoneModel));
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    }
+    return Left(ServerFailure());
+  }
+
+  @override
+  Future<Either<Failure, void>> updatePhone(PhoneEntity phone) async {
+    if (await networkInfo.isConnected) {
+      try {
+        return Right(await phoneRemoteDataSource.updatePhone(phone as PhoneModel));
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    }
+    return Left(ServerFailure());
+  }
 }

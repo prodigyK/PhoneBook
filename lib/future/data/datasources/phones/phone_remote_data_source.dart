@@ -1,8 +1,8 @@
 import 'package:phone_book/future/data/models/phone_model.dart';
 
 abstract class PhoneRemoteDataSource {
-  Future<bool> addPhone(PhoneModel phone);
-  Future<bool> updatePhone(PhoneModel phone);
+  Future<String> addPhone(PhoneModel phone);
+  Future<void> updatePhone(PhoneModel phone);
   Future<void> removePhone(PhoneModel phone);
 
   Future<List<PhoneModel>> getAllPhones();
