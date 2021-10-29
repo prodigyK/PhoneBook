@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logging/logging.dart';
 import 'package:phone_book/core/platform/network_info.dart';
@@ -33,7 +33,7 @@ Future<void> init() async {
       networkInfo: sl(),
     ),
   );
-  sl.registerLazySingleton<PhoneRemoteDataSource>(() => PhoneRemoteDataSourceImpl(instance: FirebaseFirestore.instance));
+  sl.registerLazySingleton<PhoneRemoteDataSource>(() => PhoneRemoteDataSourceImpl(instance: FakeFirebaseFirestore()));
   sl.registerLazySingleton<PhoneLocalDataSource>(() => PhoneLocalDataSourceImpl(sharedPreferences: sl()));
 
   // External
