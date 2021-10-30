@@ -27,10 +27,7 @@ class PhoneRemoteDataSourceImpl implements PhoneRemoteDataSource {
   @override
   Future<void> updatePhone(PhoneModel phone) {
     log.fine('Call updatePhone() method: $phone');
-    return _collection()
-        .doc(phone.id)
-        .update(phone.toJson())
-        .catchError((error) => throw ServerException());
+    return _collection().doc(phone.id).update(phone.toJson()).catchError((error) => throw ServerException());
   }
 
   @override
@@ -78,12 +75,11 @@ class PhoneRemoteDataSourceImpl implements PhoneRemoteDataSource {
   @override
   Future<List<PhoneModel>> searchPhonesByName(String query) async {
     log.fine('Call searchPhonesByName() method: $query');
-    List<PhoneModel> phones = [];
-    return await _collection().where('name', isEqualTo: query).get().then((snapshot) {
-      for (var phone in snapshot.docs) {
-        phones.add(PhoneModel.fromJson(phone.data() as Map<String, dynamic>));
-      }
-      return phones;
-    }).catchError((error) => throw ServerException());
+    try {
+      final phones = await getAllPhones();
+      return phones.where((phone) => phone.name.toLowerCase().contains(query.toLowerCase())).toList();
+    } catch (error) {
+      throw ServerException();
+    }
   }
 }

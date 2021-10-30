@@ -16,6 +16,8 @@ class SearchPhonesCubit extends Cubit<SearchPhonesState> {
   final SearchPhonesByNumberCase searchNameByNumberCase;
 
   Future<List<PhoneEntity>> _getPhones({required Function() getPhones}) async {
+    emit(SearchPhonesLoading());
+
     final failureOrPhones = await getPhones();
 
     List<PhoneEntity> phoneList = [];
