@@ -7,7 +7,7 @@
 .atom/
 .buildlog/
 .history
-.svn/
+.svn/ß
 
 # IntelliJ related
 *.iml
@@ -30,6 +30,7 @@
 .pub-cache/
 .pub/
 /build/
+/test/mock_data.dart
 
 # Web related
 lib/generated_plugin_registrant.dart
@@ -44,3 +45,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/coverage/lcov.info

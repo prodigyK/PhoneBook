@@ -8,27 +8,26 @@ import 'package:phone_book/service_locator.dart' as di;
 class PhoneRemoteDataSourceImpl implements PhoneRemoteDataSource {
   final List<PhoneModel> _phones = [];
   final log = di.sl<Logger>();
+  final FirebaseFirestore instance;
+
+  PhoneRemoteDataSourceImpl({required this.instance});
 
   List<PhoneModel> get phone => [..._phones];
 
   CollectionReference _collection() {
-    return FirebaseFirestore.instance.collection('phones');
+    return instance.collection('phones');
   }
 
   @override
-  Future<bool> addPhone(PhoneModel phone) {
+  Future<String> addPhone(PhoneModel phone) {
     log.fine('Call addPhone() method: $phone');
-    return _collection().add(phone.toJson()).then((value) => true).catchError((error) => throw ServerException());
+    return _collection().add(phone.toJson()).then((value) => value.id).catchError((error) => throw ServerException());
   }
 
   @override
-  Future<bool> updatePhone(PhoneModel phone) {
+  Future<void> updatePhone(PhoneModel phone) {
     log.fine('Call updatePhone() method: $phone');
-    return _collection()
-        .doc(phone.id)
-        .update(phone.toJson())
-        .then((value) => true)
-        .catchError((error) => throw ServerException());
+    return _collection().doc(phone.id).update(phone.toJson()).catchError((error) => throw ServerException());
   }
 
   @override
@@ -76,12 +75,11 @@ class PhoneRemoteDataSourceImpl implements PhoneRemoteDataSource {
   @override
   Future<List<PhoneModel>> searchPhonesByName(String query) async {
     log.fine('Call searchPhonesByName() method: $query');
-    List<PhoneModel> phones = [];
-    return await _collection().where('name', isEqualTo: query).get().then((snapshot) {
-      for (var phone in snapshot.docs) {
-        phones.add(PhoneModel.fromJson(phone.data() as Map<String, dynamic>));
-      }
-      return phones;
-    }).catchError((error) => throw ServerException());
+    try {
+      final phones = await getAllPhones();
+      return phones.where((phone) => phone.name.toLowerCase().contains(query.toLowerCase())).toList();
+    } catch (error) {
+      throw ServerException();
+    }
   }
 }
