@@ -8,13 +8,13 @@ import 'package:phone_book/future/domain/usecases/phones/add_phone_case.dart';
 
 part 'add_phone_state.dart';
 
-class PhonesCubit extends Cubit<AddPhoneState> {
+class AddPhoneCubit extends Cubit<AddPhoneState> {
   final AddPhoneCase addPhoneCase;
 
-  PhonesCubit({required this.addPhoneCase}) : super(AddPhoneInitial());
+  AddPhoneCubit({required this.addPhoneCase}) : super(AddPhoneInitial());
 
   Future<String> addPhone(PhoneEntity phone) async {
-    emit(AddPhoneInitial());
+    emit(AddPhoneLoading());
 
     final failureOrId = await addPhoneCase(AddPhoneParams(phone: phone));
 

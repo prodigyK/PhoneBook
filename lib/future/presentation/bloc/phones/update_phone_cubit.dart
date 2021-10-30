@@ -18,7 +18,9 @@ class UpdatePhoneCubit extends Cubit<UpdatePhoneState> {
     final failureOrVoid = await updatePhoneCase(UpdatePhoneParams(phone: phone));
 
     failureOrVoid.fold(
-        (failure) => emit(UpdatePhoneError(message: _mapFailureToString(failure))), (_) => emit(UpdatePhoneLoaded()));
+      (failure) => emit(UpdatePhoneError(message: _mapFailureToString(failure))),
+      (_) => emit(const UpdatePhoneLoaded(isUpdated: true)),
+    );
   }
 
   String _mapFailureToString(Failure failure) {

@@ -11,7 +11,14 @@ class UpdatePhoneInitial extends UpdatePhoneState {}
 
 class UpdatePhoneLoading extends UpdatePhoneState {}
 
-class UpdatePhoneLoaded extends UpdatePhoneState {}
+class UpdatePhoneLoaded extends UpdatePhoneState {
+  final bool isUpdated;
+
+  const UpdatePhoneLoaded({required this.isUpdated});
+
+  @override
+  List<Object> get props => [isUpdated];
+}
 
 class UpdatePhoneError extends UpdatePhoneState {
   final String message;
